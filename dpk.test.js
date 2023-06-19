@@ -13,9 +13,9 @@ describe('deterministicPartitionKey', () => {
       partitionKey: 'testValue',
     };
 
-    const trivialKey = deterministicPartitionKey(event);
+    const key = deterministicPartitionKey(event);
 
-    expect(trivialKey).toBe(event.partitionKey);
+    expect(key).toBe(event.partitionKey);
   });
 
   it('Return type is a string if partitionKey is not a string', () => {
@@ -23,9 +23,9 @@ describe('deterministicPartitionKey', () => {
       partitionKey: 1998,
     };
 
-    const trivialKey = deterministicPartitionKey(event);
+    const key = deterministicPartitionKey(event);
 
-    expect(typeof trivialKey).toBe('string');
+    expect(typeof key).toBe('string');
   });
 
   it('Returns the hashed value of the event when event has no partitonKey value', () => {
@@ -39,9 +39,9 @@ describe('deterministicPartitionKey', () => {
       .update(eventString)
       .digest('hex');
 
-    const trivialKey = deterministicPartitionKey(event);
+    const key = deterministicPartitionKey(event);
 
-    expect(trivialKey).toBe(hashedEvent);
+    expect(key).toBe(hashedEvent);
   });
 
   it('Returns the hashed value of the partitionKey when the partitionKey is too long', () => {
@@ -54,8 +54,8 @@ describe('deterministicPartitionKey', () => {
       .update(event.partitionKey)
       .digest('hex');
 
-    const trivialKey = deterministicPartitionKey(event);
+    const key = deterministicPartitionKey(event);
 
-    expect(trivialKey).toBe(hashedEvent);
+    expect(key).toBe(hashedEvent);
   });
 });
